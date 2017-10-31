@@ -1,0 +1,180 @@
+Burkinabés,Burkinabés
+Zambia,Zambia
+Brittany,Brittany
+Luxembourg,Luxembourg
+Scotland,Scotland
+Sri Lanka,Sri Lanka
+Afghanistan,Afghanistan
+Senegal,Senegal
+Greece,Greece
+Nigeria,Nigeria
+Uruguay,Uruguay
+sierra leone,sierra leone
+Nepal,Nepal
+Panama,Panama
+Puerto Rico,Puerto Rico
+Serbia,Serbia
+Cape Verde,Cape Verde
+Bahamian,Bahamian
+Peru,Peru
+China,China
+Vietnam,Vietnam
+Isle of Man,Isle of Man
+Burundi,Burundi
+Benin,Benin
+Norway,Norway
+Bulgaria,Bulgaria
+Tanzania,Tanzania
+Welsh,Welsh
+Liberia,Liberia
+Reunion,Reunion
+Gibraltar,Gibraltar
+Chile,Chile
+Bengal,Bengal
+Liechtenstein,Liechtenstein
+Guatemala,Guatemala
+Estonia,Estonia
+Namibia,Namibia
+Fiji,Fiji
+Soto,Soto
+Comoros,Comoros
+Belarus,Belarus
+Laos,Laos
+Hungary,Hungary
+Seychelles,Seychelles
+Mozambique,Mozambique
+Ethiopia,Ethiopia
+Kosovo,Kosovo
+Yemen,Yemen
+Syria,Syria
+Madagascar,Madagascar
+Samoa,Samoa
+Malawi,Malawi
+Basque,Basque
+Brazil,Brazil
+The Philippines,The Philippines
+Kazakhstan,Kazakhstan
+Algerian,Algerian
+Cuba,Cuba
+Haiti,Haiti
+United Arab Emirates,United Arab Emirates
+Arubans,Arubans
+Jamaica,Jamaica
+Niger,Niger
+Latvia,Latvia
+Croatia,Croatia
+Bermuda,Bermuda
+Indonesia,Indonesia
+Honduras,Honduras
+Mauritius,Mauritius
+Georgia,Georgia
+Italy,Italy
+Eritrea,Eritrea
+Kenya,Kenya
+Azerbaijani,Azerbaijani
+Costa Rica,Costa Rica
+Guinea-Bissau,Guinea-Bissau
+Slovakia,Slovakia
+British Virgin Islanders,British Virgin Islanders
+Uganda,Uganda
+Guinea,Guinea
+Cyprus,Cyprus
+Catalonian,Catalonian
+Slovenia,Slovenia
+Poland,Poland
+Djibouti,Djibouti
+Uzbekistan,Uzbekistan
+Belau,Belau
+Rwanda,Rwanda
+Nicaragua,Nicaragua
+Bahrainis,Bahrainis
+Argentina,Argentina
+Belize,Belize
+Lebanon,Lebanon
+America,United States of America
+United States,United States of America
+United States of America,United States of America
+Libya,Libya
+Andorra,Andorra
+Egypt,Egypt
+Mongolia,Mongolia
+Macedonia,Macedonia
+Botswana,Botswana
+Turkey,Turkey
+Malaysia,Malaysia
+Chad,Chad
+Trinidad,Trinidad
+Iceland,Iceland
+New Zealand,New Zealand
+Mali,Mali
+Brunei,Brunei
+Somalia,Somalia
+Cameroon,Cameroon
+Tuvalu,Tuvalu
+Hesse Herzegovina,Hesse Herzegovina
+Holland,Holland
+Albanian,Albanian
+Barbados,Barbados
+Portuguesa,Portuguesa
+Bosnia,Bosnia
+Lithuania,Lithuania
+Bhutanese,Bhutanese
+San Lucia,San Lucia
+Russia,Russia
+São Tomé and Príncipe,São Tomé and Príncipe
+Finland,Finland
+Denmark,Denmark
+Tibet,Tibet
+Malta,Malta
+Iran,Iran
+Ireland,Ireland
+Iraq,Iraq
+Salvador,Salvador
+Pakistan,Pakistan
+Taiwan,Taiwan
+Spain,Spain
+Korea,Korea
+Belgium,Belgium
+Morocco,Morocco
+South Africa,South Africa
+Columbia,Columbia
+Ecuador,Ecuador
+Czech,Czech
+Armenians,Armenians
+Austrian,Austrian
+Cambodia,Cambodia
+Tobago,Tobago
+Quebec,Quebec
+Grenada,Grenada
+Jordan,Jordan
+Kirghizia,Kirghizia
+Britain,Britain
+Canada,Canada
+Maldives,Maldives
+Ghana,Ghana
+Antiguans and Barbudans,Antiguans and Barbudans
+Vanuatu,Vanuatu
+Cote d'Ivoire,Cote d'Ivoire
+Sweden,Sweden
+Papua New Guineans,Papua New Guineans
+East Timor,East Timor
+Guyana,Guyana
+Angolans,Angolans
+Thailand,Thailand
+Paraguay,Paraguay
+France,France
+Surinam,Surinam
+Moldova,Moldova
+Germany,Germany
+Israel,Israel
+Dominican,Dominican
+Sudan,Sudan
+Romania,Romania
+Mexico,Mexico
+Zimbabwe,Zimbabwe
+montenegro,montenegro
+Kuwait,Kuwait
+Japan,Japan
+Farom,Farom
+Australia,Australia
+Venezuela,Venezuela

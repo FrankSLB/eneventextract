@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Sentences>
+  <Sentence date="20080806" id="AFP0808020776_1" sentence="True" source="AFP">
+    <Text>North Korea's missile launch on Tuesday was a prelude to more military operations directed at the US territory of Guam, North Korean state media said Wednesday.</Text>
+    <Parse>(ROOT
+  (S
+    (S
+      (NP
+        (NP
+          (NP (NNP North) (NNP Korea) (POS 's))
+          (NN missile) (NN launch))
+        (PP (IN on)
+          (NP (NNP Tuesday))))
+      (VP (VBD was)
+        (NP
+          (NP (DT a) (NN prelude))
+          (PP (TO to)
+            (NP
+              (NP (JJR more) (JJ military) (NNS operations))
+              (VP (VBN directed)
+                (PP (IN at)
+                  (NP
+                    (NP (DT the) (NNP US) (NN territory))
+                    (PP (IN of)
+                      (NP (NNP Guam)))))))))))
+    (, ,)
+    (NP (JJ North) (JJ Korean) (NN state) (NNS media))
+    (VP (VBD said)
+      (NP-TMP (NNP Wednesday)))
+    (. .)))</Parse>
+  </Sentence>
+  <Sentence date="20080806" id="AFP0808020776_2" sentence="True" source="AFP">
+    <Text>Pyongyang said it fired an intermediate-range missile Hwasong-12 in Tuesday's test.</Text>
+    <Parse>(ROOT
+  (S
+    (NP (NNP Pyongyang))
+    (VP (VBD said)
+      (SBAR
+        (S
+          (NP (PRP it))
+          (VP (VBD fired)
+            (NP (DT an) (JJ intermediate-range) (NN missile) (NN Hwasong-12))
+            (PP (IN in)
+              (NP
+                (NP (NNP Tuesday) (POS 's))
+                (NN test)))))))
+    (. .)))</Parse>
+  </Sentence>
+  <Sentence date="20080806" id="AFP0808020776_3" sentence="True" source="AFP">
+    <Text>The missile's flight path took it over Japan, further fueling tensions between North Korea and the United States and its allies, Japan and South Korea.</Text>
+    <Parse>(ROOT
+  (S
+    (NP
+      (NP (DT The) (NN missile) (POS 's))
+      (NN flight) (NN path))
+    (VP (VBD took)
+      (NP (PRP it))
+      (PP (IN over)
+        (NP (NNP Japan)))
+      (, ,)
+      (S
+        (ADVP (RB further))
+        (VP (VBG fueling)
+          (NP
+            (NP
+              (NP (NNS tensions))
+              (PP (IN between)
+                (NP
+                  (NP (NNP North) (NNP Korea))
+                  (CC and)
+                  (NP (DT the) (NNP United) (NNPS States)))))
+            (CC and)
+            (NP
+              (NP (PRP$ its) (NNS allies))
+              (, ,)
+              (NP (NNP Japan))
+              (CC and)
+              (NP (NNP South) (NNP Korea)))))))
+    (. .)))</Parse>
+  </Sentence>
+</Sentences>
