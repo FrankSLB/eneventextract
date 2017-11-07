@@ -7,9 +7,10 @@ import os
 import sys
 import glob
 import time
+import random
 import logging
 import argparse
-from multiprocessing import Process, freeze_support, Queue, Lock
+from multiprocessing import Process, freeze_support, Queue, Lock, Pool, Manager
 
 from constants import MULTI_PROCESS_CONFIG, MULTI_PROCESS_LOG_DIR
 from session_factory import Session
@@ -420,12 +421,12 @@ PETRARCH2
     javainfo_command.add_argument('-o', '--outputs',
                                   help='File to write parsed events.',
                                   required=False)
+    javainfo_command.add_argument('story_id')
     javainfo_command.add_argument('story_url')
     javainfo_command.add_argument('story_date')
     javainfo_command.add_argument('story_src')
     javainfo_command.add_argument('story_title')
     javainfo_command.add_argument('story_content')
-    javainfo_command.add_argument('story_id')
     # add cmd to java info ,end
 
     # miaoweixin added begin
@@ -545,7 +546,7 @@ def main():
     print("Finished")
 
 
-def run_in_background(cli_args):
+def run_in_background_bak(cli_args):
 
     # 读取多进程运行的必需参数
     multiprocess_config = read_key_value_file(MULTI_PROCESS_CONFIG, '=')
@@ -618,7 +619,153 @@ def run_in_background(cli_args):
         # count = count + 1
 
 
-def process_target(q, l, first_task, cli_args, multi_log_lock):
+def run_in_background(cli_args):
+    # 读取多进程运行的必需参数
+    multiprocess_config = read_key_value_file(MULTI_PROCESS_CONFIG, '=')
+    max_subprocesses = int(multiprocess_config['MAX_SUBPROCESSES'])
+    max_stories_to_read = int(multiprocess_config['MAX_STORIES_TO_READ'])
+    seconds_between_reads = int(multiprocess_config['SECONDS_BETWEEN_READS'])
+    queue_size_under_control = int(multiprocess_config['QUEUE_SIZE_UNDER_CONTROL'])
+    wait_for_consume = int(multiprocess_config['WAIT_FOR_CONSUME'])
+
+    # 创建多进程日志文件的目录
+    if not os.path.isdir(MULTI_PROCESS_LOG_DIR):
+        os.mkdir(MULTI_PROCESS_LOG_DIR)
+
+    # 多进程日志锁
+    multi_log_lock = Lock()
+    # 打印主进程启动消息，必须在创建了日志目录之后
+    write_multiprocess_log(multi_log_lock, u'Main process started successfully.')
+
+    # dict containing all subprocesses
+    subprocesses = {}
+    # queue shared between processes
+    queue = Queue()
+
+    # 调试程序时使用，控制读取输入的次数
+    # count = 0
+
+    while True:
+        # if count == 1:
+        #     continue
+
+        # wait for subprocesses to consume queue before reading Solr
+        while queue.qsize() >= queue_size_under_control:
+            time.sleep(wait_for_consume)
+            continue
+
+        # 从Solr中读取输入
+        tmp_list = access_solr.read_stories(max_stories_to_read)
+        if tmp_list is None:
+            print("Solr connection error!")
+            write_multiprocess_log(multi_log_lock, u'Solr connection error!')
+            time.sleep(seconds_between_reads)
+            continue
+        elif len(tmp_list) == 0:
+            time.sleep(seconds_between_reads)
+            continue
+        else:
+            # 记录读到了多少条任务
+            write_multiprocess_log(multi_log_lock, '{}Main process read {} tasks from solr.'.format(u'', len(tmp_list)))
+
+        # produce items
+        for item in tmp_list:
+            # these two lines should be removed
+            item['content'] = item['content'].replace(u'’', u"'")
+            item['content'] = item['content'].replace(u'”', u'"')
+
+            queue.put(item)
+
+        # 没有输入，进入下次循环，empty()方法不可靠，使用qsize()
+        if queue.qsize() == 0:
+            time.sleep(seconds_between_reads)
+            continue
+
+        # check if some processes have died
+        terminated_procs_pids = []
+        for pid, proc in subprocesses.items():
+            if not proc.is_alive():
+                terminated_procs_pids.append(pid)
+        # delete these from the subprocesses dict
+        for terminated_proc in terminated_procs_pids:
+            subprocesses.pop(terminated_proc)
+
+        # 根据实际情况新增尽量少的子进程个数
+        new_processes = []
+        queue_size = queue.qsize()
+        if len(subprocesses) < max_subprocesses:
+            allow_num = max_subprocesses - len(subprocesses)
+            create_num = queue_size if queue_size < allow_num else allow_num
+            for i in range(create_num):
+                proc = Process(target=process_target, args=(queue, cli_args, multi_log_lock))
+                new_processes.append(proc)
+            for proc in new_processes:
+                proc.start()
+                subprocesses[proc.pid] = proc
+
+        # count = count + 1
+
+
+def process_target(queue, cli_args, multi_log_lock):
+    # 打印子进程启动消息
+    write_multiprocess_log(multi_log_lock, '{}Process {}: {}'.format(u'', os.getpid(), u'started.'))
+
+    # 子进程先读取进程运行所需各种信息
+    utilities.init_logger()
+    logger = logging.getLogger('petr_log')
+
+    PETRglobals.RunTimeString = time.asctime()
+
+    if cli_args.config:
+        print('Using user-specified config: {}'.format(cli_args.config))
+        logger.info(
+            'Using user-specified config: {}'.format(cli_args.config))
+        PETRreader.parse_Config(cli_args.config)
+    else:
+        logger.info('Using default config file.')
+        PETRreader.parse_Config(utilities._get_data('data/config/',
+                                                    'PETR_config.ini'))
+
+    if cli_args.nullverbs:
+        print('Coding in null verbs mode; no events will be generated')
+        logger.info(
+            'Coding in null verbs mode; no events will be generated')
+        # Only get verb phrases that are not in the dictionary but are
+        # associated with coded noun phrases
+        PETRglobals.NullVerbs = True
+    elif cli_args.nullactors:
+        print('Coding in null actors mode; no events will be generated')
+        logger.info(
+            'Coding in null verbs mode; no events will be generated')
+        # Only get actor phrases that are not in the dictionary but
+        # associated with coded verb phrases
+        PETRglobals.NullActors = True
+        PETRglobals.NewActorLength = int(cli_args.nullactors)
+
+    read_dictionaries()
+    print('\n\n')
+
+    out = ""  # PETRglobals.EventFileName
+    if cli_args.outputs:
+        out = cli_args.outputs
+
+    # 创建一个和数据库交流的session
+    session = Session()
+
+    while True:
+        if queue.qsize > 0:
+            # 从队列中获取一个任务
+            task = queue.get()
+            # 打印日志，获取到了任务
+            write_multiprocess_log(multi_log_lock, '{}Process {} get one task: {}'.format(u'', os.getpid(), task))
+            # 执行任务
+            process_task(task, out, multi_log_lock, session)
+        else:
+            time.sleep(0.5 * random.random())
+            continue
+
+
+def process_target_bak(q, l, first_task, cli_args, multi_log_lock):
 
     # 子进程先读取进程运行所需各种信息
     utilities.init_logger()

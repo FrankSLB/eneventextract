@@ -30,6 +30,7 @@ def _backup(src, dst):
 
 
 def write_multiprocess_log(lock, content, mode='a'):
+
     lock.acquire()
 
     # 向日志文件写日志
